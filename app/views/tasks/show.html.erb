@@ -1,10 +1,20 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Show Task Page</h1>
+
 <p>
-  <strong>Task:</strong>
-  <%= @task.content %>
+<tr>
+  <strong>Title:</strong>
+  <%= @task.title %></td><br>
+
+  <td><strong>Content:</strong>
+  <%= @task.content %></td><br>
+
+  <td><strong>Created_at:</strong>
+  <%= @task.created_at %></td>
+</tr>
 </p>
 
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Edit', edit_task_path(@task), id: "edit-task"  %> |
+<%= link_to 'Back', tasks_path, id: "back" %>
