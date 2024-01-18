@@ -2,6 +2,9 @@
 
 <h1><%= t('.tasks_index') %></h1>
 
+<% @tasks.each do |task| %>  
+<% end %>
+<%= paginate @tasks %>
 <table>
   <thead>
     <tr>
