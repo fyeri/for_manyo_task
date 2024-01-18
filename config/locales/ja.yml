@@ -7,10 +7,18 @@ ja:
         content: 内容
         create_task: 登録する
         update_task: 更新する
+    errors:
+      models:
+        task:
+          attributes:
+            title:
+              blank: "を入力してください"
+            content:
+              blank: "を入力してください"  
 
   
   common:
-    confirm_destroy: 本当に削除してもよろしいですか
+    confirm_destroy: 本当に削除してもよろしいですか？
     task_created: タスクを登録しました
     task_updated: タスクを更新しました
     task_destroyed: タスクを削除しました      
@@ -26,7 +34,7 @@ ja:
       tasks_index: タスク一覧ページ
       title: タイトル
       content: 内容
-      create_at: 作成日
+      create_at: 作成日時
       show: 詳細
       edit: 編集
       destroy: 削除
