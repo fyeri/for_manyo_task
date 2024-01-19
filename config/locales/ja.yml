@@ -1,20 +1,27 @@
 ja:
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: を入力してください
   activerecord:
     models:
+     task: タスク
     attributes:
-      task:
+      task: 
         title: タイトル
         content: 内容
+        create_at: 作成日時
         create_task: 登録する
         update_task: 更新する
-    errors:
-      models:
-        task:
-          attributes:
-            title:
-              blank: "を入力してください"
-            content:
-              blank: "を入力してください"  
+
+
+      # models:
+      #   task:
+      #     attributes:
+      #       title:
+      #         blank: "を入力してください"
+      #       content:
+      #         blank: "を入力してください"  
 
   
   common:
