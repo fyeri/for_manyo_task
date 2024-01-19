@@ -17,19 +17,62 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '一覧表示機能' do
+       # let!を使ってテストデータを変数として定義することで、複数のテストでテストデータを共有できる
+
+       let!(:first_task) { FactoryBot.create(:task, title: 'first_task', created_at: '2022-02-18') }
+       let!(:second_task) { FactoryBot.create(:task, title: 'second_task', created_at: '2022-02-17') }
+       let!(:third_task) { FactoryBot.create(:task, title: 'third_task', created_at: '2022-02-16') }
+ # 「一覧画面に遷移した場合」や「タスクが作成日時の降順に並んでいる場合」など、contextが実行されるタイミングで、before内のコードが実行される
+       before do
+          visit tasks_path
+       end
+
     context '一覧画面に遷移した場合' do
-      it '登録済みのタスク一覧が表示される' do
-        # テストで使用するためのタスクを登録
-        # Task.create!(title: '書類作成', content: '企画書を作成する。')
-        # タスク一覧画面に遷移
-        FactoryBot.create(:task)
-        visit tasks_path
-        # visit（遷移）したpage（この場合、タスク一覧画面）に"書類作成"という文字列が、have_content（含まれていること）をexpect（確認・期待）する
-        expect(page).to have_content '書類作成'
-        # expectの結果が「真」であれば成功、「偽」であれば失敗としてテスト結果が出力される
+      it '作成済みのタスク一覧が作成日時の降順で表示される' do
+    
+        expected_content = [
+          /.*first_task.*2022-02-18.*/,
+          /.*second_task.*2022-02-17.*/,
+          /.*third_task.*2022-02-16.*/
+        ]
+    
+ 
+        task_list = all('body tr')
+        expect(task_list[1]).to have_content(expected_content[0])
+        expect(task_list[2]).to have_content(expected_content[1])
+        expect(task_list[3]).to have_content(expected_content[2])
       end
     end
+
+     context '新たにタスクを作成した場合' do
+       it '新しいタスクが一番上に表示される' do
+
+        new_task = FactoryBot.create(:task, title: 'new_task', created_at: '2022-02-20')
+
+        click_link "new-task"
+
+        fill_in "task_title", with: "今日の仕事"
+        fill_in "task_content", with: "書類作成"
+
+        click_button "create-task"
+
+        expected_content = [
+          /.*new_task.*2022-02-20.*/,
+          /.*first_task.*2022-02-18.*/,
+          /.*second_task.*2022-02-17.*/,
+          /.*third_task.*2022-02-16.*/
+        ]
+        
+        task_list = all('body table tbody tr').map { |row| row.all('td').map(&:text).join(' ') }
+
+        expect(task_list[1]).to have_content(expected_content[0])
+        expect(task_list[2]).to have_content(expected_content[1])
+        expect(task_list[3]).to have_content(expected_content[2])
+        expect(task_list[4]).to have_content(expected_content[3])    
+      end
+    end    
   end
+
 
   describe '詳細表示機能' do
      context '任意のタスク詳細画面に遷移した場合' do

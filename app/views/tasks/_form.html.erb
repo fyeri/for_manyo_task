@@ -22,13 +22,15 @@
    </div>
   
   <% if controller.action_name == "new" then %>
-     <% id = "create-task" %>
+    <% id = "create-task" %>
+    <% label_key = "activerecord.attributes.task.create_task" %>
   <% else %>
-     <% id = "update-task" %>
+    <% id = "update-task" %>
+    <% label_key = "activerecord.attributes.task.update_task" %>
   <% end %>
 
   <div class="actions">
-    <%= form.submit id: id %>
+    <%= form.submit t(label_key), id: id %>
   </div>
 
 <% end %>
