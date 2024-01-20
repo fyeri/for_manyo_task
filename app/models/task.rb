@@ -9,5 +9,5 @@ class Task < ApplicationRecord
   validates :status, presence: {message: :blank}
 
 scope :latest, -> {order(deadline_on: :asc)}
-scope :expensive, -> {order(priority: :asc)}
+scope :expensive, -> {order(priority: :desc)}
 end
