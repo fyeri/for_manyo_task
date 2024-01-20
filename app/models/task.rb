@@ -3,4 +3,7 @@ class Task < ApplicationRecord
   enum status: { 未着手: 0, 着手中: 1, 完了: 2}
   validates :title, presence: {message: :blank}
   validates :content, presence: {message: :blank}
+  validates :deadline_on, presence: {message: :blank}
+  validates :priority, presence: {message: :blank}
+  validates :status, presence: {message: :blank}
 end

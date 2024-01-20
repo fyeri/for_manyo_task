@@ -5,6 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 50.times do |n|
-  Task.create(title: "ブログ記述#{n}回目", content:"#{n}回目")
+  Task.create(title: "ブログ記述#{n}回目",
+  content:"#{n}回目",
+  deadline_on: Date.today + n.days,
+  priority: Task.priorities.keys[n % Task.priorities.size],
+  status: Task.statuses.keys[n % Task.statuses.size] )
 end
