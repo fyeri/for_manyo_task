@@ -42,6 +42,9 @@ ja:
       title: タイトル
       content: 内容
       create_at: 作成日時
+      deadline_on: 終了期限
+      priority: 優先度
+      status: ステータス
       show: 詳細
       edit: 編集
       destroy: 削除
