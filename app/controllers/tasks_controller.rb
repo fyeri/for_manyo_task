@@ -1,17 +1,29 @@
 class TasksController < ApplicationController
  before_action :set_task, only: [:show, :edit, :update, :destroy]
 
-def index
-  # @tasks = Task.all.order(created_at: "DESC").page(params[:page]).per(10)
+# def index
 
-  @tasks = if params[:sort_deadline_on]
-    Task.latest.page(params[:page]).per(10)
+#   @tasks = if params[:sort_deadline_on]
+#     Task.latest.page(params[:page]).per(10)
+#   elsif params[:sort_priority]
+#     Task.expensive.page(params[:page]).per(10)
+#   else
+#     Task.all.order(created_at: :desc).page(params[:page]).per(10)
+#   end
+# end
+
+def index
+  @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
+
+  if params[:sort_deadline_on]
+    @tasks = Task.latest.page(params[:page]).per(10)
   elsif params[:sort_priority]
-    Task.expensive.page(params[:page]).per(10)
-  else
-    Task.all.order(created_at: :desc).page(params[:page]).per(10)
+    @tasks = Task.expensive.page(params[:page]).per(10)
+  elsif params[:search].present?
+    @tasks = apply_search_filter(@tasks)
   end
 end
+
 
 def show
 end
@@ -71,3 +83,13 @@ end
    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status )
  end
 
+ def apply_search_filter(tasks)
+  if params[:search][:title].present? && params[:search][:status].present?
+    tasks = tasks.search_by_title(params[:search][:title]).search_by_status(params[:search][:status])
+  elsif params[:search][:title].present?
+    tasks = tasks.search_by_title(params[:search][:title])
+  elsif params[:search][:status].present?
+    tasks = tasks.search_by_status(params[:search][:status])
+  end
+  tasks
+end

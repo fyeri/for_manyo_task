@@ -5,6 +5,22 @@
 <% @tasks.each do |task| %>  
 <% end %>
 
+<%= form_with(model: :search, scope: :search, url: tasks_path, method: :get, local: true) do |form| %>
+  
+
+    <%= form.label :status,  t('.status') %>
+    <%= form.select :status, Task.statuses.keys.unshift("")%>
+ 
+    <%= form.label :title, t('.title') %>
+    <%= form.text_field :title %>
+
+
+  <div class="actions">
+    <%= form.submit t('.search') , id: "search_task" %>
+  </div>
+<% end %>
+
+
 <table>
   <thead>
     <tr>

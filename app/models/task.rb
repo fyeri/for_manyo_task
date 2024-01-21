@@ -10,4 +10,8 @@ class Task < ApplicationRecord
 
 scope :latest, -> {order(deadline_on: :asc)}
 scope :expensive, -> {order(priority: :desc)}
+
+scope :search_by_title, ->(title) { where("title LIKE ?", "%#{title}%") if title.present? }
+scope :search_by_status, ->(status) { where(status: status) if status.present? }
+
 end
