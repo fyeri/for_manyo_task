@@ -20,6 +20,6 @@ class Task < ApplicationRecord
     tasks = tasks.expensive if params[:sort_priority]
     tasks = tasks.search_by_title(params[:search][:title]) if params[:search].present? && params[:search][:title].present?
     tasks = tasks.search_by_status(params[:search][:status]) if params[:search].present? && params[:search][:status].present?
-    tasks
+    tasks.order(created_at: :desc)
   end
 end

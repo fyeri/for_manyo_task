@@ -5,7 +5,6 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクを登録した場合' do
       it '登録したタスクが表示される' do
         
-        # Task.create!(title: '書類作成', content: '企画書を作成する。')
         FactoryBot.create(:task)
         visit tasks_path
         
@@ -21,7 +20,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
        let!(:first_task) { FactoryBot.create(:task, title: 'first_task', created_at: '2022-02-18', deadline_on: '2025-02-18', priority: "中", status: "未着手"  ) }
        let!(:second_task) { FactoryBot.create(:task, title: 'second_task', created_at: '2022-02-17', deadline_on: '2025-02-17', priority: "高", status: "着手中"  ) }
-       let!(:third_task) { FactoryBot.create(:task, title: 'third_task', created_at: '2022-02-16', priority: "低", status: "完了" ) }
+       let!(:third_task) { FactoryBot.create(:task, title: 'third_task', created_at: '2022-02-16', deadline_on: '2025-02-17', priority: "低", status: "完了") }
  # 「一覧画面に遷移した場合」や「タスクが作成日時の降順に並んでいる場合」など、contextが実行されるタイミングで、before内のコードが実行される
        before do
           visit tasks_path
@@ -48,10 +47,10 @@ RSpec.describe 'タスク管理機能', type: :system do
      context '新たにタスクを作成した場合' do
        it '新しいタスクが一番上に表示される' do
 
-        new_task = FactoryBot.create(:task, title: 'new_task', created_at: '2022-02-20')
-
+        new_task = FactoryBot.create(:task, title: 'new_task', created_at: '2022-02-20', deadline_on: '2023-02-17', priority: "高", status: "着手中"  )
+      
         click_link "new-task"
-
+   
         fill_in "task_title", with: "今日の仕事"
         fill_in "task_content", with: "書類作成"
         fill_in "task_deadline_on", with: "002024-02-10"
@@ -61,6 +60,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_button "create-task"
 
         expected_content = [
+          /.*今日の仕事.*2024-01-22.*/,
           /.*new_task.*2022-02-20.*/,
           /.*first_task.*2022-02-18.*/,
           /.*second_task.*2022-02-17.*/,
@@ -69,40 +69,39 @@ RSpec.describe 'タスク管理機能', type: :system do
         
         task_list = all('body table tbody tr').map { |row| row.all('td').map(&:text).join(' ') }
 
-        expect(task_list[1]).to have_content(expected_content[0])
-        expect(task_list[2]).to have_content(expected_content[1])
-        expect(task_list[3]).to have_content(expected_content[2])
-        expect(task_list[4]).to have_content(expected_content[3])    
+        expect(task_list[0]).to have_content(expected_content[0])
+        expect(task_list[1]).to have_content(expected_content[1])
+        expect(task_list[2]).to have_content(expected_content[2]) 
+        expect(task_list[3]).to have_content(expected_content[3]) 
+        expect(task_list[4]).to have_content(expected_content[4]) 
       end
     end 
     
     describe 'ソート機能' do
       let!(:first_task) { FactoryBot.create(:task, title: 'first_task', created_at: '2022-02-18', deadline_on: '2025-02-18', priority: "中", status: "未着手"  ) }
       let!(:second_task) { FactoryBot.create(:task, title: 'second_task', created_at: '2022-02-17', deadline_on: '2025-02-17', priority: "高", status: "着手中"  ) }
-      let!(:third_task) { FactoryBot.create(:task, title: 'third_task', created_at: '2022-02-16', priority: "低", status: "完了" ) }
+      let!(:third_task) { FactoryBot.create(:task, title: 'third_task', created_at: '2022-02-16', deadline_on: '2025-02-16', priority: "低", status: "完了") }
       before do
         visit tasks_path
      end
       context '「終了期限」というリンクをクリックした場合' do
         it "終了期限昇順に並び替えられたタスク一覧が表示される" do
           # allメソッドを使って複数のテストデータの並び順を確認する
-binding.irb
         click_on '終了期限'
-        sleep 2
+        sleep 1
 
 
         expected_sorted_content = [
-          /.*third_task.*2022-02-16.*/,
-          /.*second_task.*2022-02-17.*/,
-          /.*first_task.*2022-02-18.*/,
+          /.*third_task.*2025-02-16.*/,
+          /.*second_task.*2025-02-17.*/,
+          /.*first_task.*2025-02-18.*/,
         ]
    
         sorted_task_list = all('body table tbody tr').map { |row| row.all('td').map(&:text).join(' ') }
 
-        expect(sorted_task_list[1]).to have_content(expected_sorted_content[0])
-        expect(sorted_task_list[2]).to have_content(expected_sorted_content[1])
-        expect(sorted_task_list[3]).to have_content(expected_sorted_content[2])
-
+        expect(sorted_task_list[0]).to have_content(expected_sorted_content[0])
+        expect(sorted_task_list[1]).to have_content(expected_sorted_content[1])
+        expect(sorted_task_list[2]).to have_content(expected_sorted_content[2])
         end
       end
 
@@ -111,9 +110,8 @@ binding.irb
         it "優先度の高い順に並び替えられたタスク一覧が表示される" do
           # allメソッドを使って複数のテストデータの並び順を確認する
           visit tasks_path
-          # binding.irb
           click_on '優先度'
-          sleep 2
+          sleep 1
 
           expected_order = [
             /.*second_task.*高.*/,
@@ -123,9 +121,9 @@ binding.irb
     
           priority_task_list = all('body table tbody tr').map { |row| row.all('td').map(&:text).join(' ') }
     
-          expect(priority_task_list[1]).to have_content(expected_order[0])
-          expect(priority_task_list[2]).to have_content(expected_order[1])
-          expect(priority_task_list[3]).to have_content(expected_order[2])
+          expect(priority_task_list[0]).to have_content(expected_order[0])
+          expect(priority_task_list[1]).to have_content(expected_order[1])
+          expect(priority_task_list[2]).to have_content(expected_order[2])
         
         end
         end
@@ -134,13 +132,11 @@ binding.irb
     describe '検索機能' do
       let!(:first_task) { FactoryBot.create(:task, title: 'first_task', created_at: '2022-02-18', deadline_on: '2025-02-18', priority: "中", status: "未着手") }
       let!(:second_task) { FactoryBot.create(:task, title: 'second_task', created_at: '2022-02-17', deadline_on: '2025-02-17', priority: "高", status: "着手中") }
-      let!(:third_task) { FactoryBot.create(:task, title: 'third_task', created_at: '2022-02-16', priority: "低", status: "完了") }
+      let!(:third_task) { FactoryBot.create(:task, title: 'third_task', created_at: '2022-02-16', deadline_on: '2025-02-17', priority: "低", status: "完了") }
       before do
         visit tasks_path
      end
       context 'タイトルであいまい検索をした場合' do
-
-
         it "検索ワードを含むタスクのみ表示される" do
           # toとnot_toのマッチャを使って表示されるものとされないものの両方を確認する
   
@@ -156,20 +152,18 @@ binding.irb
       context 'ステータスで検索した場合' do
         it "検索したステータスに一致するタスクのみ表示される" do
           # toとnot_toのマッチャを使って表示されるものとされないものの両方を確認する
-          # binding.irb
           select "完了", from: "search_status"
           click_button '検索'
 
-          expect(page).to have_content '完了'
-          expect(page).not_to have_content '未着手'
-          expect(page).not_to have_content '着手中'
+          expect(page).to have_content 'third_task'
+          expect(page).not_to have_content 'second_task'
+          expect(page).not_to have_content 'first_task'
         end
       end
 
       context 'タイトルとステータスで検索した場合' do
         it "検索ワードをタイトルに含み、かつステータスに一致するタスクのみ表示される" do
           # toとnot_toのマッチャを使って表示されるものとされないものの両方を確認する
-          # binding.irb
           fill_in "search_title", with: 'first'
           select "未着手", from: "search_status"
           click_button '検索'
@@ -177,10 +171,6 @@ binding.irb
           expect(page).to have_content 'first_task'
           expect(page).not_to have_content 'second_task'
           expect(page).not_to have_content 'third_task'
-
-          expect(page).to have_content '未着手'
-          expect(page).not_to have_content '完了'
-          expect(page).not_to have_content '着手中'
         end
       end
     end
