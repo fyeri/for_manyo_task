@@ -8,10 +8,18 @@ class Task < ApplicationRecord
   validates :priority, presence: {message: :blank}
   validates :status, presence: {message: :blank}
 
-scope :latest, -> {order(deadline_on: :asc)}
-scope :expensive, -> {order(priority: :desc)}
 
-scope :search_by_title, ->(title) { where("title LIKE ?", "%#{title}%") if title.present? }
-scope :search_by_status, ->(status) { where(status: status) if status.present? }
+scope :latest, -> { order(deadline_on: :asc) }
+  scope :expensive, -> { order(priority: :desc) }
+  scope :search_by_title, ->(title) { where("title LIKE ?", "%#{title}%") if title.present? }
+  scope :search_by_status, ->(status) { where(status: status) if status.present? }
+  scope :filtered_list, ->(params) do
+    tasks = all
+    tasks = tasks.latest if params[:sort_deadline_on]
+    tasks = tasks.expensive if params[:sort_priority]
+    tasks = tasks.search_by_title(params[:search][:title]) if params[:search].present? && params[:search][:title].present?
+    tasks = tasks.search_by_status(params[:search][:status]) if params[:search].present? && params[:search][:status].present?
+    tasks
+  end
 
 end
