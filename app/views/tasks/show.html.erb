@@ -4,14 +4,35 @@
 
 <p>
 <tr>
+<div class="field">
   <strong><%= t('.title') %></strong>
   <%= @task.title %></td><br>
+</div>
 
+<div class="field">
   <td><strong><%= t('.content') %></strong>
   <%= @task.content %></td><br>
+</div>
 
+<div class="field">
   <td><strong><%= t('.create_at') %></strong>
   <%= @task.created_at %></td>
+</div>
+
+<div class="field">
+  <td><strong><%= t('.deadline_on') %></strong>
+  <%= @task.deadline_on %></td>
+</div>
+
+<div class="field">
+  <td><strong><%= t('.priority') %></strong>
+  <%= @task.priority %></td>
+</div>
+
+<div class="field">
+  <td><strong><%= t('.status') %></strong>
+  <%= @task.status %></td>
+</div>
 </tr>
 </p>
 

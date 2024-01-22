@@ -18,8 +18,57 @@ RSpec.describe 'タスクモデル機能', type: :model do
 
     context 'タスクのタイトルと説明に値が入っている場合' do
       it 'タスクを登録できる' do
-        task = Task.create(title: '今日の読書', content: 'Ruby入門')
+        task = Task.create(title: '今日の読書', content: 'Ruby入門',deadline_on: '2023-12-28', priority: "中", status: "完了" )
         expect(task).to be_valid
+      end
+    end
+
+    describe '検索機能' do
+
+      let!(:first_task) { FactoryBot.create(:task, title: 'first_task_title', deadline_on: '2025-02-18', priority: "中", status: "未着手"  ) }
+      let!(:second_task) { FactoryBot.create(:task, title: 'second_task_title', deadline_on: '2025-02-17', priority: "高", status: "着手中" ) }
+      let!(:third_task) { FactoryBot.create(:task, title: 'third_task_title', deadline_on: '2022-02-16', priority: "低", status: "完了" ) }
+
+      context 'scopeメソッドでタイトルのあいまい検索をした場合' do
+        it "検索ワードを含むタスクが絞り込まれる" do
+          # toとnot_toのマッチャを使って検索されたものとされなかったものの両方を確認する
+          # 検索されたテストデータの数を確認する
+          expect(Task.search_by_title('first')).to include(first_task)
+          expect(Task.search_by_title('first')).not_to include(second_task)
+          expect(Task.search_by_title('first')).not_to include(third_task)
+          expect(Task.search_by_title('first').count).to eq 1
+        end
+      end
+      context 'scopeメソッドでステータス検索をした場合' do
+        it "ステータスに完全一致するタスクが絞り込まれる" do
+          # toとnot_toのマッチャを使って検索されたものとされなかったものの両方を確認する
+          # 検索されたテストデータの数を確認する
+          expect(Task.search_by_status('未着手')).to include(first_task)
+          expect(Task.search_by_status('未着手')).not_to include(second_task)
+          expect(Task.search_by_status('未着手')).not_to include(third_task)
+          expect(Task.search_by_status('未着手').count).to eq 1
+        end
+      end
+      context 'scopeメソッドでタイトルのあいまい検索とステータス検索をした場合' do
+        it "検索ワードをタイトルに含み、かつステータスに完全一致するタスクが絞り込まれる" do
+          # toとnot_toのマッチャを使って検索されたものとされなかったものの両方を確認する
+          # 検索されたテストデータの数を確認する
+
+          # 検索されたものとされなかったものの両方を確認する
+          expect(Task.search_by_title('first')).to include(first_task)
+          expect(Task.search_by_title('first')).not_to include(second_task)
+          expect(Task.search_by_title('first')).not_to include(third_task)
+      
+          expect(Task.search_by_status('未着手')).to include(first_task)
+          expect(Task.search_by_status('未着手')).not_to include(second_task)
+          expect(Task.search_by_status('未着手')).not_to include(third_task)
+      
+          # タイトルに 'first' かつ ステータスが '未着手' に一致することを確認
+          expect(Task.search_by_title('first').search_by_status('未着手')).to include(first_task)
+          expect(Task.search_by_title('first').search_by_status('未着手')).not_to include(second_task)
+          expect(Task.search_by_title('first').search_by_status('未着手')).not_to include(third_task)
+          expect(Task.search_by_title('first').search_by_status('未着手').count).to eq 1
+        end
       end
     end
   end

@@ -2,8 +2,9 @@ class TasksController < ApplicationController
  before_action :set_task, only: [:show, :edit, :update, :destroy]
 
 def index
-  @tasks = Task.all.order(created_at: "DESC").page(params[:page]).per(10)
-  end
+  @tasks = Task.filtered_list(params).page(params[:page]).per(10)
+end
+
 
 def show
 end
@@ -60,6 +61,6 @@ end
  end
 
  def task_params
-   params.require(:task).permit(:title, :content)
+   params.require(:task).permit(:title, :content, :deadline_on, :priority, :status )
  end
 
