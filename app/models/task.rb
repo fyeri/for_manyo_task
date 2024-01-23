@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  belongs_to :user
+
   enum priority: { 低: 0, 中: 1, 高: 2 }
   enum status: { 未着手: 0, 着手中: 1, 完了: 2}
   
@@ -14,8 +16,8 @@ class Task < ApplicationRecord
   scope :expensive, -> { order(priority: :desc, created_at: :desc) }
   scope :search_by_title, ->(title) { where("title LIKE ?", "%#{title}%") if title.present? }
   scope :search_by_status, ->(status) { where(status: status) if status.present? }
-  scope :filtered_list, ->(params) do
-    tasks = all
+  scope :filtered_list, ->(params, current_user) do
+    tasks = where(user_id: current_user.id)
     tasks = tasks.latest if params[:sort_deadline_on]
     tasks = tasks.expensive if params[:sort_priority]
     tasks = tasks.search_by_title(params[:search][:title]) if params[:search].present? && params[:search][:title].present?

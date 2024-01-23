@@ -16,10 +16,11 @@ ja:
         create_at: 作成日時
         create_task: 登録する
         update_task: 更新する
-
-
- 
-
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: "パスワード（確認）とパスワードの入力が一致しません"
   
   common:
     confirm_destroy: 本当に削除してもよろしいですか？
@@ -30,6 +31,42 @@ ja:
     application:
       tasks-index: タスク一覧ページ
       new-task: タスクを登録する
+      profile: アカウント設定
+      logout: ログアウト
+      sign_up: アカウント登録
+      sign_in: ログイン
+  sessions:
+    new: 
+      log_in: ログインページ
+      e_mail: メールアドレス
+      password: パスワード
+      login: ログイン
+
+  users:
+    name: 名前
+    e_mail: メールアドレス
+    password: パスワード
+    password_confirmation: パスワード（確認）
+
+    new: 
+      sign_up: アカウント登録ページ
+      create_user: 登録する
+    
+    show: 
+      account_detial: アカウント詳細ページ
+      e_mail: "メールアドレス:"
+      name: "名前:"
+      edit: 編集
+      destroy_user: "削除"
+
+    edit:
+      back: 戻る
+      name: 名前
+      e_mail: メールアドレス
+      password: パスワード
+      password_confirmation: パスワード（確認）
+      update_user: 更新する
+    
   tasks:
     _form:
       create_task: 登録する
@@ -65,3 +102,4 @@ ja:
       status: "ステータス:"
       edit: 編集
       back: 戻る
+  

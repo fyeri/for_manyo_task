@@ -6,4 +6,14 @@ Rails.application.routes.draw do
       get '/search', to: 'tasks#search'
     end  
   end
+  resources :sessions, only: [:new, :create, :destroy]
+
+  resources :users, only: [:new, :create, :show, :update, :destroy, :edit]
+
+
+  namespace :admin do
+    resources :users
+   
+  end
+  delete '/logout', to: 'sessions#destroy'
 end
