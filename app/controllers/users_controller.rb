@@ -49,12 +49,12 @@ end
   
   def correct_user
     @user = User.find(params[:id])
-    redirect_to current_user unless current_user?(@user)
+    unless current_user?(@user)
+      flash[:alert] = 'アクセス制限がありません'
+    redirect_to current_user 
+    end
   end
 
-  def current_user?(user)
-    user == current_user
-  end
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

@@ -3,6 +3,7 @@ ja:
     format: "%{attribute}%{message}"
     messages:
       blank: を入力してください
+      confirmation: と%{attribute}の入力が一致しません
   activerecord:
     models:
      task: タスク
@@ -20,8 +21,7 @@ ja:
         name: 名前
         email: メールアドレス
         password: パスワード
-        password_confirmation: "パスワード（確認）とパスワードの入力が一致しません"
-  
+        password_confirmation: パスワード（確認）
   common:
     confirm_destroy: 本当に削除してもよろしいですか？
     task_created: タスクを登録しました

@@ -2,6 +2,10 @@ class SessionsController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
 
   def new
+    if session[:user_id]
+      flash[:alert] = 'ログアウトしてください'
+      redirect_to tasks_path
+    end
   end
 
   def create
