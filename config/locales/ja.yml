@@ -22,6 +22,8 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認）
+        admin: 管理者権限
+        create_user: 登録する
   common:
     confirm_destroy: 本当に削除してもよろしいですか？
     task_created: タスクを登録しました
@@ -47,6 +49,7 @@ ja:
     e_mail: メールアドレス
     password: パスワード
     password_confirmation: パスワード（確認）
+
 
     new: 
       sign_up: アカウント登録ページ

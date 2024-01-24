@@ -11,7 +11,7 @@ class Task < ApplicationRecord
   validates :status, presence: {message: :blank}
 
 
-# scope :latest, -> { order(deadline_on: :asc) }
+
   scope :latest, -> { order(deadline_on: :asc, created_at: :desc) }
   scope :expensive, -> { order(priority: :desc, created_at: :desc) }
   scope :search_by_title, ->(title) { where("title LIKE ?", "%#{title}%") if title.present? }

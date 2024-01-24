@@ -49,7 +49,8 @@ end
   
   def correct_user
     @user = User.find(params[:id])
-    unless current_user?(@user)
+
+    unless current_user?(@user) ||  current_user.admin?
       flash[:alert] = 'アクセス制限がありません'
     redirect_to current_user 
     end
