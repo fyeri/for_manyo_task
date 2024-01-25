@@ -19,7 +19,15 @@ class Admin::UsersController < ApplicationController
   end
 
   def new
-    @user=User.new
+    if logged_in? && !current_user.admin?
+      flash[:warning] = 'ログアウトしてください'
+      redirect_to tasks_path
+    elsif !logged_in?
+      flash[:warning] = 'ログインしてください'
+      redirect_to new_session_path
+    else
+      @user = User.new
+    end
   end
 
   def edit
@@ -52,7 +60,7 @@ class Admin::UsersController < ApplicationController
 
 private
   def admin_user
-    unless current_user.admin? 
+    unless logged_in? && current_user.admin?
       flash[:alert] = '管理者以外アクセスできません' 
       redirect_to tasks_path
     end

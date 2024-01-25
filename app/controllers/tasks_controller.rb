@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
  before_action :set_task, only: %i[:show, :edit, :update, :destroy]
+  before_action :authorize_user, only: [:show, :edit, :update, :destroy]
+
 def index
   @tasks = Task.filtered_list(params, current_user).page(params[:page]).per(10)
 end
@@ -62,3 +64,4 @@ end
     redirect_to login_path
   end
 end
+
