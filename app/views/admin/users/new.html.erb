@@ -1,4 +1,4 @@
-<h1>ユーザ登録ページ</h1>
+<h1><%= t('.user_new') %></h1>
 
 <% if @user.errors.any? %>
   <div id="error_explanation">
@@ -12,7 +12,7 @@
 <% end %>
 
 
-<%= form_with(url: admin_users_path, model: @user, local: true) do |f| %>
+<%= form_with(model: [:admin, @user], local: true) do |f| %>
 <div class="field">
   <%= f.label "name" %>
   <%= f.text_field :name %>
@@ -29,11 +29,11 @@
   <%= f.label "password_confirmation" %>
   <%= f.password_field :password_confirmation %>
 </div>
-  <div class="field">
-    <%= f.label "admin"  %>
-    <%= f.check_box :admin %>
-  </div>
 <div class="field">
-  <%= f.submit "create_user", id: "create-user" %>
+  <%= f.label "admin"  %>
+  <%= f.check_box :admin %>
+</div>
+<div class="field">
+  <%= f.submit t('.create_user'), id: "create-user" %>
 </div>
 <% end %>

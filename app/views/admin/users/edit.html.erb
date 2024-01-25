@@ -1,4 +1,4 @@
-<h1>ユーザ編集ページ</h1>
+<h1><%= t('.user_edit') %></h1>
 
 <% if @user.errors.any? %>
   <div id="error_explanation">
@@ -34,9 +34,9 @@
   </div>
   <div class="field">
     <br>
-  <%= f.submit "更新する", id: "update-user" %>
+   <%= f.submit t('.update_user'), id: "update-user" %>
 </div>
 <% end %>
 
   <br>
-<%= link_to "戻る", admin_users_path, id: "back" %>
+<%= link_to t('.back'), admin_users_path, id: "back" %>

@@ -24,6 +24,7 @@ ja:
         password_confirmation: パスワード（確認）
         admin: 管理者権限
         create_user: 登録する
+        
   common:
     confirm_destroy: 本当に削除してもよろしいですか？
     task_created: タスクを登録しました
@@ -63,6 +64,7 @@ ja:
       destroy_user: "削除"
 
     edit:
+      edit_user: アカウント編集ページ
       back: 戻る
       name: 名前
       e_mail: メールアドレス
@@ -105,4 +107,37 @@ ja:
       status: "ステータス:"
       edit: 編集
       back: 戻る
-  
+    
+  admin:
+    users:
+      index:
+        user_index: ユーザ一覧ページ
+        name: 名前
+        email: メールアドレス
+        admin: 管理者権限
+        tasks: タスク数
+        show_user: 詳細
+        edit_user: 編集
+        delete_user: 削除
+
+      edit:
+        user_edit: ユーザ編集ページ
+        update_user: 更新する
+        back: 戻る
+
+      new:
+        user_new: ユーザ登録ページ
+        create_user: 登録する
+
+      show:
+        user_show: ユーザ詳細ページ
+        name: "名前:"
+        email: "メールアドレス:"
+        admin: "管理者権限:"
+        title: タイトル
+        content: 内容
+        create_at: 作成日時
+        deadline_on: 終了期限
+        priority: 優先度
+        status: ステータス
+        back: 戻る
