@@ -32,7 +32,9 @@ ja:
     task_destroyed: タスクを削除しました      
   layouts:
     application:
-      tasks-index: タスク一覧ページ
+      user_show: ユーザ一覧
+      user_edit: ユーザを登録する
+      tasks-index: タスク一覧
       new-task: タスクを登録する
       profile: アカウント設定
       logout: ログアウト
