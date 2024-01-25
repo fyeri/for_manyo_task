@@ -11,12 +11,11 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
       if @user.save
-        @user.update(admin: true)
         flash[:notice] = "ユーザを登録しました"
       redirect_to admin_users_path
     else
       render 'new'
-      end
+    end
   end
 
   def new

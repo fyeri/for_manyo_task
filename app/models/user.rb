@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_secure_password
-
+  before_destroy :ensure_admin_remains
   before_validation { email.downcase! }
 
   validates :name, presence: {message: :blank}
@@ -12,4 +12,12 @@ class User < ApplicationRecord
     admin
   end
 
+  def ensure_admin_remains
+    if admin?
+      if User.where(admin: true).count <= 1
+      errors.add(:base, "管理者が0人になるため削除できません")
+      throw(:abort)
+      end
+   end
+  end
 end
