@@ -17,7 +17,7 @@
 
   <% if  current_user && current_user.admin? %>
     <li><%= link_to t('.user_show'), admin_users_path,  id: "users-index" %></li>
-    <li><%= link_to t('.user_edit'), new_admin_user_path,  id: "add-users" %></li>
+    <li><%= link_to t('.user_edit'), new_admin_user_path,  id: "add-user" %></li>
  <% end %>
 
   <% if logged_in? %>
