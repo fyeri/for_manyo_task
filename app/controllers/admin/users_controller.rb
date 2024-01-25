@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
 
 
   def index
-    @users = User.all
+    @users = User.includes(:tasks).all
   end
 
   def create
