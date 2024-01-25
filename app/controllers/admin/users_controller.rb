@@ -34,8 +34,8 @@ class Admin::UsersController < ApplicationController
   def update
        @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "アカウントを更新しました"
-      redirect_to  user_path(id: params[:id])
+      flash[:notice] = "ユーザを更新しました"
+      redirect_to  admin_users_path
     else
       render :edit
     end
@@ -53,7 +53,8 @@ class Admin::UsersController < ApplicationController
 
 private
   def admin_user
-    unless current_user.admin?  
+    unless current_user.admin? 
+      flash[:alert] = '管理者以外アクセスできません' 
       redirect_to root_path
     end
   end
