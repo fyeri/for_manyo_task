@@ -54,7 +54,7 @@ private
   def admin_user
     unless current_user.admin? 
       flash[:alert] = '管理者以外アクセスできません' 
-      redirect_to root_path
+      redirect_to tasks_path
     end
   end
 
