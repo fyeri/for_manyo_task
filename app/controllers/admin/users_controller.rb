@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
   before_action :admin_user
-  skip_before_action :login_required, only: [:new, :create]
   before_action :set_user, only: [:show, :edit, :destroy]
+  skip_before_action :login_required, only: [:new, :create]
 
 
   def index
