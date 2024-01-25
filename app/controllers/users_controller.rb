@@ -3,7 +3,12 @@ class UsersController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
 
   def new
+    if logged_in?
+      flash[:warning] = 'ログアウトしてください'
+      redirect_to tasks_path
+    else
     @user = User.new
+    end
   end
 
   def create
@@ -49,7 +54,6 @@ end
   
   def correct_user
     @user = User.find(params[:id])
-
     unless current_user?(@user) ||  current_user.admin?
       flash[:alert] = 'アクセス制限がありません'
     redirect_to current_user 

@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
  before_action :set_task, only: %i[:show, :edit, :update, :destroy]
-
 def index
   @tasks = Task.filtered_list(params, current_user).page(params[:page]).per(10)
 end
@@ -45,6 +44,13 @@ end
  def set_task
    @task = Task.find(params[:id])
  end
+
+ def authorize_user
+  unless current_user == @task.user
+    flash[:alert] = 'アクセス権限がありません'
+    redirect_to tasks_path
+  end
+end
  
  def task_params
    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status )
