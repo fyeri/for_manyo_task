@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
- before_action :set_task, only: %i[:show, :edit, :update, :destroy]
+ before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :authorize_user, only: [:show, :edit, :update, :destroy]
 
 def index
@@ -24,7 +24,6 @@ def create
     else
       render :new 
     end
-  end
 end
 
 def update
@@ -33,7 +32,7 @@ def update
     else
       render :edit
     end
-  end
+end
 
 def destroy
   @task.destroy
@@ -59,9 +58,9 @@ end
  end
 
  def require_login
-  unless session[:user_id]
-    flash[:error] = “ログインしてください”
-    redirect_to login_path
+    unless session[:user_id]
+      flash[:error] = “ログインしてください”
+      redirect_to login_path
+    end
   end
 end
-

@@ -24,8 +24,8 @@ class User < ApplicationRecord
 
   def check_admin_count
     if admin_changed? && admin == false && User.where(admin: true).count <= 1
-        errors.add(:base, "管理者が0人になるため権限を変更できません")
-        throw(:abort)
-      end
-    end 
+      errors.add(:base, "管理者が0人になるため権限を変更できません")
+      throw(:abort)
+    end
+  end 
 end
