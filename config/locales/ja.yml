@@ -3,6 +3,7 @@ ja:
     format: "%{attribute}%{message}"
     messages:
       blank: を入力してください
+      confirmation: と%{attribute}の入力が一致しません
   activerecord:
     models:
      task: タスク
@@ -16,11 +17,14 @@ ja:
         create_at: 作成日時
         create_task: 登録する
         update_task: 更新する
-
-
- 
-
-  
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
+        admin: 管理者権限
+        create_user: 登録する
+        
   common:
     confirm_destroy: 本当に削除してもよろしいですか？
     task_created: タスクを登録しました
@@ -28,8 +32,48 @@ ja:
     task_destroyed: タスクを削除しました      
   layouts:
     application:
-      tasks-index: タスク一覧ページ
+      user_show: ユーザ一覧
+      user_edit: ユーザを登録する
+      tasks-index: タスク一覧
       new-task: タスクを登録する
+      profile: アカウント設定
+      logout: ログアウト
+      sign_up: アカウント登録
+      sign_in: ログイン
+  sessions:
+    new: 
+      log_in: ログインページ
+      e_mail: メールアドレス
+      password: パスワード
+      login: ログイン
+
+  users:
+    name: 名前
+    e_mail: メールアドレス
+    password: パスワード
+    password_confirmation: パスワード（確認）
+
+
+    new: 
+      sign_up: アカウント登録ページ
+      create_user: 登録する
+    
+    show: 
+      account_detial: アカウント詳細ページ
+      e_mail: "メールアドレス:"
+      name: "名前:"
+      edit: 編集
+      destroy_user: "削除"
+
+    edit:
+      edit_user: アカウント編集ページ
+      back: 戻る
+      name: 名前
+      e_mail: メールアドレス
+      password: パスワード
+      password_confirmation: パスワード（確認）
+      update_user: 更新する
+    
   tasks:
     _form:
       create_task: 登録する
@@ -65,3 +109,37 @@ ja:
       status: "ステータス:"
       edit: 編集
       back: 戻る
+    
+  admin:
+    users:
+      index:
+        user_index: ユーザ一覧ページ
+        name: 名前
+        email: メールアドレス
+        admin: 管理者権限
+        tasks: タスク数
+        show_user: 詳細
+        edit_user: 編集
+        delete_user: 削除
+
+      edit:
+        user_edit: ユーザ編集ページ
+        update_user: 更新する
+        back: 戻る
+
+      new:
+        user_new: ユーザ登録ページ
+        create_user: 登録する
+
+      show:
+        user_show: ユーザ詳細ページ
+        name: "名前:"
+        email: "メールアドレス:"
+        admin: "管理者権限:"
+        title: タイトル
+        content: 内容
+        create_at: 作成日時
+        deadline_on: 終了期限
+        priority: 優先度
+        status: ステータス
+        back: 戻る

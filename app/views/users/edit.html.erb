@@ -1,0 +1,38 @@
+<h1><%= t('.edit_user')%></h1>
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<%= form_with(model: @user, local: true) do |f| %>
+<div class="field">
+  <%= f.label  t('.name') %>
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.label t('.e_mail') %>
+  <%= f.email_field :email %>
+</div>
+<div class="field">  
+  <%= f.label t('.password') %>
+  <%= f.password_field :password %>
+</div>
+<div class="field">
+  <%= f.label t('.password_confirmation') %>
+  <%= f.password_field :password_confirmation %>
+</div>
+<div class="field">
+  <br>
+  <%= f.submit t('.update_user'), id: "update-user" %>
+</div>
+  <br>
+<%= link_to t('.back'), user_path(@user), id: "back" %>
+<% end %>

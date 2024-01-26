@@ -1,0 +1,17 @@
+<h1><%= t('.account_detial') %></h1>
+
+<tr>
+<div class="field">
+ </td><strong><%= t('.name') %></strong>
+  <%= @user.name %></td><br>
+</div>
+
+<div class="field">
+ </td><strong><%= t('.e_mail') %></strong>
+  <%= @user.email %></td><br>
+</div>
+</tr>
+
+
+<%= link_to t('.edit'), edit_user_path, id: "edit-user"  %> |
+<%= link_to t('.destroy_user'), user_path(@user.id),  method: :delete, data: { confirm: t('common.confirm_destroy') }, id: "destroy-user"  %>

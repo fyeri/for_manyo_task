@@ -1,0 +1,46 @@
+<h1><%= t('.user_show') %></h1>
+
+<tr>
+<div class="field">
+  </td><strong><%= t('.name') %></strong>
+  <%= @user.name %></td><br>
+</div>
+
+  <div class="field">
+    </td><strong><%= t('.email') %></strong>
+    <%= @user.email %></td><br>
+  </div>
+  <div class="field">
+    </td><strong><%= t('.admin') %></strong>
+    <td><%= @user.admin? ? "あり" : "なし"  %></td>
+  </div>
+</tr>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('.title') %></th>
+      <th><%= t('.content') %></th>
+      <th><%= t('.create_at') %></th>
+      <th><%=  t('.deadline_on') %></th>
+      <th><%= t('.priority') %></th>
+      <th><%= t('.status') %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+    <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= task.created_at %></td>
+        <td><%= task.deadline_on %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.status %></td>
+      <tr>
+    <% end %>
+  </tbody> 
+</table>
+      
+<%= link_to t('.back'), admin_users_path, id: "back" %>

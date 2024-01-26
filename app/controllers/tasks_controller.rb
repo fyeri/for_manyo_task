@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user, only: [:show, :edit, :update, :destroy]
 
 def index
-  @tasks = Task.filtered_list(params).page(params[:page]).per(10)
+  @tasks = Task.filtered_list(params, current_user).page(params[:page]).per(10)
 end
 
 
@@ -17,41 +18,26 @@ def edit
 end
 
 def create
-  @task = Task.new(task_params)
-
-  respond_to do |format|
+  @task = current_user.tasks.build(task_params)
     if @task.save
-      format.html { redirect_to tasks_path, notice: t('common.task_created') }
-      format.json { render :show, status: :created, location: @task }
+      redirect_to tasks_path, notice: t('common.task_created') 
     else
-      format.html { render :new }
-      format.json { render json: @task.errors, status: :unprocessable_entity }
+      render :new 
     end
-  end
 end
 
 def update
-  respond_to do |format|
     if @task.update(task_params)
-      format.html { redirect_to @task, notice: t('common.task_updated') }
-      format.json { render :show, status: :ok, location: @task }
+      redirect_to tasks_path, notice: t('common.task_updated') 
     else
-      format.html { render :edit, status: :unprocessable_entity }
-      format.json { render json: @task.errors, status: :unprocessable_entity }
+      render :edit
     end
-  end
 end
-
 
 def destroy
   @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: t('common.task_destroyed') }
-      format.json { head :no_content }
-    end
-  end
+  redirect_to tasks_path, notice: t('common.task_destroyed') 
 end
-
 
 
  private
@@ -60,7 +46,21 @@ end
    @task = Task.find(params[:id])
  end
 
+ def authorize_user
+  unless current_user == @task.user
+    flash[:alert] = 'アクセス権限がありません'
+    redirect_to tasks_path
+  end
+end
+ 
  def task_params
    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status )
  end
 
+ def require_login
+    unless session[:user_id]
+      flash[:error] = “ログインしてください”
+      redirect_to login_path
+    end
+  end
+end
