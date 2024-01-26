@@ -7,6 +7,7 @@ FactoryBot.define do
     deadline_on { '2025-01-12' }
     priority { '中' }
     status { '完了' }
+    user
   end
   # 作成するテストデータの名前を「second_task」とします
   # 「second_task」のように存在しないクラス名のスネークケースをテストデータ名とする場合、`class`オプションを使ってどのクラスのテストデータを作成するかを明示する必要があります

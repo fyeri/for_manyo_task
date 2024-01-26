@@ -18,16 +18,21 @@ RSpec.describe 'タスクモデル機能', type: :model do
 
     context 'タスクのタイトルと説明に値が入っている場合' do
       it 'タスクを登録できる' do
-        task = Task.create(title: '今日の読書', content: 'Ruby入門',deadline_on: '2023-12-28', priority: "中", status: "完了" )
+       
+        user = User.create!(name: 'a', email: 'a@gmail.com', password: 'password', password_confirmation: 'password', admin: false)
+
+        task = FactoryBot.build(:task, user: user)
+        task.save
         expect(task).to be_valid
       end
     end
+    
 
     describe '検索機能' do
-
-      let!(:first_task) { FactoryBot.create(:task, title: 'first_task_title', deadline_on: '2025-02-18', priority: "中", status: "未着手"  ) }
-      let!(:second_task) { FactoryBot.create(:task, title: 'second_task_title', deadline_on: '2025-02-17', priority: "高", status: "着手中" ) }
-      let!(:third_task) { FactoryBot.create(:task, title: 'third_task_title', deadline_on: '2022-02-16', priority: "低", status: "完了" ) }
+      let!(:user) { FactoryBot.create(:user) }
+      let!(:first_task) { FactoryBot.create(:task, title: 'first_task_title', deadline_on: '2025-02-18', priority: "中", status: "未着手",user: user  ) }
+      let!(:second_task) { FactoryBot.create(:task, title: 'second_task_title', deadline_on: '2025-02-17', priority: "高", status: "着手中",user: user ) }
+      let!(:third_task) { FactoryBot.create(:task, title: 'third_task_title', deadline_on: '2022-02-16', priority: "低", status: "完了",user: user ) }
 
       context 'scopeメソッドでタイトルのあいまい検索をした場合' do
         it "検索ワードを含むタスクが絞り込まれる" do
