@@ -14,6 +14,7 @@ ja:
         deadline_on: 終了期限
         priority: 優先度
         status: ステータス
+        label: ラベル
         create_at: 作成日時
         create_task: 登録する
         update_task: 更新する

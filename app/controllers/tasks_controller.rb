@@ -15,6 +15,7 @@ def new
 end
 
 def edit
+  @labels = @task.labels
 end
 
 def create
@@ -54,7 +55,7 @@ end
 end
  
  def task_params
-   params.require(:task).permit(:title, :content, :deadline_on, :priority, :status )
+   params.require(:task).permit(:title, :content, :deadline_on, :priority, :status, label_ids: [] )
  end
 
  def require_login

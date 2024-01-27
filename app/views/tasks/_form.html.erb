@@ -35,7 +35,17 @@
      <%= form.label :status %>
      <%= form.select :status,Task.statuses.keys.to_a , include_blank: true%>
   </div>
-  
+
+
+  <div class="field">
+    <%= form.label :label %>
+    <% Label.all.each do |label| %>
+      <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id] %>
+      <%= label.name %>
+    <% end %>
+
+  </div>
+
   
   <% if controller.action_name == "new" then %>
     <% id = "create-task" %>

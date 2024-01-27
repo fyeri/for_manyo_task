@@ -33,6 +33,12 @@
   <td><strong><%= t('.status') %></strong>
   <%= @task.status %></td>
 </div>
+
+<div class="field">
+  <td><strong><%= "ラベル" %></strong>
+  <%= @task.labels.map(&:name).join(' ')  %></td>
+</div>
+
 </tr>
 </p>
 
