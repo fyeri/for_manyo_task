@@ -1,4 +1,4 @@
-<h1>ラベル編集ページ</h1>
+<h1><%= t('.label_edit') %></h1>
 
 <% if @label.errors.any? %>
   <div id="error_explanation">
@@ -13,13 +13,13 @@
 
 <%= form_with(model: @label, local: true) do |f| %>
 <div class="field">
-  <%= f.label "名前"  %>
+  <%= f.label t('labels.name')  %>
   <%= f.text_field :name %>
 </div>
 <div class="field">
-  <%= f.submit "更新する", id: "update-user" %>
+  <%= f.submit t('.update_label'), id: "update-label" %>
 </div>
 
-<%= link_to "戻る" , labels_path(@label), id: "back" %>
+<%= link_to t('labels.back') , labels_path(@label), id: "back" %>
 <% end %>
 

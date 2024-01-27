@@ -8,6 +8,8 @@ ja:
     models:
      task: タスク
     attributes:
+      label:
+        name: 名前
       task: 
         title: タイトル
         content: 内容
@@ -37,6 +39,8 @@ ja:
       user_edit: ユーザを登録する
       tasks-index: タスク一覧
       new-task: タスクを登録する
+      label_show: ラベル一覧
+      label_new: ラベルを登録する
       profile: アカウント設定
       logout: ログアウト
       sign_up: アカウント登録
@@ -108,8 +112,27 @@ ja:
       deadline_on: "終了期限:"
       priority: "優先度:"
       status: "ステータス:"
+      label: "ラベル:"
       edit: 編集
       back: 戻る
+  labels:
+    name: 名前
+    label: ラベル
+    edit: 編集
+    delete: 削除
+    back: 戻る
+
+    new:
+      label_new: ラベル登録ページ
+      create_label: 登録する
+
+    index:
+      label_index: ラベル一覧ページ
+      tasks: タスク数
+
+    edit:
+      label_edit: ラベル編集ページ
+      update_label: 更新する
     
   admin:
     users:
