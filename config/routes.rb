@@ -15,4 +15,5 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :new, :create, :show,  :edit, :destroy, :update]  
   end
    resources :sessions, only: [:new, :create, :destroy]
+   resources :labels, only: [:index, :new, :edit, :create, :destroy, :update]
 end
