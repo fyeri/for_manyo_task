@@ -39,20 +39,19 @@
      <%= form.select :status,Task.statuses.keys.to_a , {include_blank: true}, {class: "form-control"} %>
   </div>
 
-  <div class="form-group labels">
+
+ <div class="form-group labels">
     <div class=“labels”>
       <%= form.label :label %>
+
       <% current_user.labels.each do |label| %>
       <div class=“form-check”>
-        <%= form.check_box :label_ids, { multiple: true, include_hidden: false}, {class: 'form-check-label' }, label[:id] %>
+        <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id] %>
         <%= label.name %>
       </div>
       <% end %>
     </div>
   </div>
-
-  
-
   
   <% if controller.action_name == "new" then %>
     <% id = "create-task" %>
@@ -63,17 +62,10 @@
   <% end %>
 
 
-<div class="d-flex flex-column bd-highlight mb-3">
+<div class="d-flex flex-column bd-highlight mb-3 align-items-end">
 
 <%= form.submit t(label_key), id: id, class: "btn btn-primary" %>
 
-  <%= link_to t('.back'), tasks_path, id: "back"%>
+  <%= link_to "戻る", tasks_path, id: "back"%>
 </div>
 <% end %>
-<br>
-
-    <div class="actions flex-column float-right">
-      <%= form.submit t(label_key), id: id, class: "btn btn-primary" %>
-
-      <%= link_to t('.back'), tasks_path, id: "back"%>
-    </div>

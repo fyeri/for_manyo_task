@@ -28,7 +28,7 @@ def edit
 end
 
 def create
-  @task = current_user.tasks.build(task_params)
+   @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: t('common.task_created') 
     else
@@ -64,7 +64,7 @@ end
 end
  
  def task_params
-   params.require(:task).permit(:title, :content, :deadline_on, :priority, :status, label_ids: [] )
+   params.require(:task).permit(:title, :content, :deadline_on, :priority, :status, label_ids: [] ).reject { |label_id| label_id.blank? }
  end
 
  def require_login
@@ -74,3 +74,4 @@ end
     end
   end
 end
+

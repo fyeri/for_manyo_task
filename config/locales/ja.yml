@@ -20,6 +20,7 @@ ja:
         create_at: 作成日時
         create_task: 登録する
         update_task: 更新する
+        back: 戻る
       user:
         name: 名前
         email: メールアドレス
@@ -83,6 +84,7 @@ ja:
     _form:
       create_task: 登録する
       update_task: 更新する
+      back: 戻る
     index:
       tasks_index: タスク一覧ページ
       title: タイトル

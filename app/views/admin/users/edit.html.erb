@@ -32,11 +32,10 @@
     <%= f.label :admin  %>
     <%= f.check_box :admin %>
   </div>
-  <div class="field">
-    <br>
+  <div class="d-flex flex-column bd-highlight mb-3 align-items-end">
    <%= f.submit t('.update_user'), id: "update-user", class: "btn btn-primary" %>
-  </div>
+  
 <% end %>
 
-  <br>
 <%= link_to t('.back'), admin_users_path, id: "back" %>
+</div>

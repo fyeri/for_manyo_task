@@ -16,10 +16,13 @@
   <%= f.label t('labels.name')  %>
   <%= f.text_field :name, class:"form-control" %>
 </div>
-<div class="form-group">
-  <%= f.submit t('.update_label'), id: "update-label", class: "btn btn-primary" %>
-</div>
 
-<%= link_to t('labels.back') , labels_path(@label), id: "back" %>
+
+<div class="d-flex flex-column bd-highlight mb-3 align-items-end">
+  <%= f.submit t('.update_label'), id: "update-label", class: "btn btn-primary" %>
+
+
+  <%= link_to t('labels.back') , labels_path(@label), id: "back" %>
+</div>
 <% end %>
 
