@@ -3,7 +3,15 @@ class TasksController < ApplicationController
   before_action :authorize_user, only: [:show, :edit, :update, :destroy]
 
 def index
+  if params[:search].present?
+    if params[:search][:label].present?
+      @tasks = current_user.labels.find(params[:search][:label]).tasks
+    else
+      @tasks = Task.filtered_list(params, current_user).page(params[:page]).per(10)
+    end
+  else
   @tasks = Task.filtered_list(params, current_user).page(params[:page]).per(10)
+  end
 end
 
 

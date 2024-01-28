@@ -25,4 +25,5 @@ class Task < ApplicationRecord
     tasks = tasks.search_by_status(params[:search][:status]) if params[:search].present? && params[:search][:status].present?
     tasks.order(created_at: :desc)
   end
+  
 end
