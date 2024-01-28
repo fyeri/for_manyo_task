@@ -1,10 +1,16 @@
 <h1><%= t('.label_index') %></h1>
 
-<table>
+<style>
+  .table tbody tr:last-child td {
+    border-bottom: 1px solid #ddd; /* 必要に応じて色やスタイルを調整してください */
+  }
+</style>
+
+<table class="table">
   <thead>
     <tr>
-      <th><%= t('labels.name') %></th>
-      <th><%= t('.tasks') %></th>
+      <th scope="col"><%= t('labels.name') %></th>
+      <th scope="col"><%= t('.tasks') %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,8 +21,8 @@
         <td><%= label.name %></td>
         <td><%= label.tasks.size %></td>
 
-        <td><%= link_to t('labels.edit_label'), edit_label_path(label),class: "edit-label" %></td>
-        <td><%= link_to t('labels.delete'), label, method: :delete, data: { confirm: t('common.confirm_destroy') }, class: "destroy-label" %></td>
+        <td><%= link_to t('labels.edit_label'), edit_label_path(label),class: "edit-label  btn btn-primary text-white" %></td>
+        <td><%= link_to t('labels.delete'), label, method: :delete, data: { confirm: t('common.confirm_destroy') }, class: "destroy-label btn btn-danger text-white" %></td>
       </tr>
     <% end %>
   </tbody>

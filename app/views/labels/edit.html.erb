@@ -12,12 +12,12 @@
 <% end %>
 
 <%= form_with(model: @label, local: true) do |f| %>
-<div class="field">
+<div class="form-group">
   <%= f.label t('labels.name')  %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, class:"form-control" %>
 </div>
-<div class="field">
-  <%= f.submit t('.update_label'), id: "update-label" %>
+<div class="form-group">
+  <%= f.submit t('.update_label'), id: "update-label", class: "btn btn-primary" %>
 </div>
 
 <%= link_to t('labels.back') , labels_path(@label), id: "back" %>

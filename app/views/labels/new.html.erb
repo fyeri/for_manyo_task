@@ -14,11 +14,11 @@
 
 <%= form_with(model: @label, local: true) do |f| %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label t('labels.name') %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class:"form-control"  %>
     </div>
   <div class="field">
-    <%= f.submit t('.create_label'), id: "create-label" %>
+    <%= f.submit t('.create_label'), id: "create-label", class: "btn btn-primary"  %>
   </div>
 <% end %>

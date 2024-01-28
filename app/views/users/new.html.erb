@@ -11,9 +11,9 @@
 <% end %>
 
 <%= form_with(model: @user, local: true) do |f| %>
-<div class="field">
+<div class="form-group">
   <%= f.label t('users.name') %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, class:"form-control"  %>
 </div>
 <div class="field">
   <%= f.label t('users.e_mail') %>
