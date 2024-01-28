@@ -12,6 +12,7 @@ end
 
 def new
   @task = Task.new
+  @labels = current_user.labels
 end
 
 def edit

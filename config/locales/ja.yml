@@ -118,7 +118,7 @@ ja:
   labels:
     name: 名前
     label: ラベル
-    edit: 編集
+    edit_label: 編集
     delete: 削除
     back: 戻る
 

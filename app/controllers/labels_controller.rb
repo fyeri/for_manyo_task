@@ -2,7 +2,7 @@ class LabelsController < ApplicationController
   before_action :set_label, only: [:show, :edit, :update, :destroy]
 
   def index
-    @labels = Label.all
+    @labels = current_user.labels
   end
 
   def edit
@@ -13,7 +13,7 @@ class LabelsController < ApplicationController
   end
 
   def create
-    @label = Label.new(label_params)
+    @label = current_user.labels.build(label_params)
     if @label.save
       flash[:notice] = "ラベルを登録しました"
       redirect_to labels_path
