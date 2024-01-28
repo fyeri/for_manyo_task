@@ -91,6 +91,7 @@ ja:
       deadline_on: 終了期限
       priority: 優先度
       status: ステータス
+      label: ラベル
       search: 検索
       show: 詳細
       edit: 編集
