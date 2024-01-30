@@ -13,26 +13,25 @@
 
 
 <%= form_with(model: @user, local: true) do |f| %>
-<div class="field">
+<div class="form-group">
   <%= f.label  t('.name') %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, class:"form-control" %>
 </div>
-<div class="field">
+<div class="form-group">
   <%= f.label t('.e_mail') %>
-  <%= f.email_field :email %>
+  <%= f.email_field :email, class:"form-control"  %>
 </div>
-<div class="field">  
+<div class="form-group">  
   <%= f.label t('.password') %>
-  <%= f.password_field :password %>
+  <%= f.password_field :password, class:"form-control"  %>
 </div>
-<div class="field">
+<div class="form-group">
   <%= f.label t('.password_confirmation') %>
-  <%= f.password_field :password_confirmation %>
+  <%= f.password_field :password_confirmation, class:"form-control"  %>
 </div>
-<div class="field">
-  <br>
-  <%= f.submit t('.update_user'), id: "update-user" %>
-</div>
-  <br>
+<div class="d-flex flex-column bd-highlight mb-3 align-items-end">
+  <%= f.submit t('.update_user'), id: "update-user", class: "btn btn-primary"  %>
+ 
 <%= link_to t('.back'), user_path(@user), id: "back" %>
+</div>
 <% end %>

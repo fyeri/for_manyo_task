@@ -1,0 +1,28 @@
+<h1><%= t('.label_edit') %></h1>
+
+<% if @label.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@label.errors.count, "error") %> prohibited this <%= @label.name %> from being saved:</h2>
+    <ul>
+    <% @label.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @label, local: true) do |f| %>
+<div class="form-group">
+  <%= f.label t('labels.name')  %>
+  <%= f.text_field :name, class:"form-control" %>
+</div>
+
+
+<div class="d-flex flex-column bd-highlight mb-3 align-items-end">
+  <%= f.submit t('.update_label'), id: "update-label", class: "btn btn-primary" %>
+
+
+  <%= link_to t('labels.back') , labels_path(@label), id: "back" %>
+</div>
+<% end %>
+

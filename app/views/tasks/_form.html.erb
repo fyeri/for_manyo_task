@@ -12,30 +12,46 @@
     </div>
   <% end %>
 
-  <div class="field">
+
+  <div class="form-group">
      <%= form.label :title %>
-     <%= form.text_field :title %>
+     <%= form.text_field :title, class:"form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
      <%= form.label :content %>
-     <%= form.text_area :content %>
+     <%= form.text_area :content, class:"form-control"  %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
      <%= form.label :deadline_on %>
-     <%= form.date_field :deadline_on%>
+     <%= form.date_field :deadline_on, class:"form-control"%>
   </div>
 
-  <div class="field">
-     <%= form.label :priority%>
-     <%= form.select :priority, Task.priorities.keys.to_a, include_blank: true %>
-  </div>
 
-  <div class="field">
+
+<div class="form-group">
+  <%= form.label :priority %>
+  <%= form.select :priority, Task.priorities.keys.to_a, {include_blank: true}, {class: "form-control"}%>
+</div>
+
+  <div class="form-group">
      <%= form.label :status %>
-     <%= form.select :status,Task.statuses.keys.to_a , include_blank: true%>
+     <%= form.select :status,Task.statuses.keys.to_a , {include_blank: true}, {class: "form-control"} %>
   </div>
-  
+
+
+ <div class="form-group labels">
+    <div class=“labels”>
+      <%= form.label :label %>
+
+      <% current_user.labels.each do |label| %>
+      <div class=“form-check”>
+        <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id] %>
+        <%= label.name %>
+      </div>
+      <% end %>
+    </div>
+  </div>
   
   <% if controller.action_name == "new" then %>
     <% id = "create-task" %>
@@ -45,8 +61,11 @@
     <% label_key = "activerecord.attributes.task.update_task" %>
   <% end %>
 
-  <div class="actions">
-    <%= form.submit t(label_key), id: id %>
-  </div>
 
+<div class="d-flex flex-column bd-highlight mb-3 align-items-end">
+
+<%= form.submit t(label_key), id: id, class: "btn btn-primary" %>
+
+  <%= link_to "戻る", tasks_path, id: "back"%>
+</div>
 <% end %>

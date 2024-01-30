@@ -3,7 +3,15 @@ class TasksController < ApplicationController
   before_action :authorize_user, only: [:show, :edit, :update, :destroy]
 
 def index
+  if params[:search].present?
+    if params[:search][:label].present?
+      @tasks = current_user.labels.find(params[:search][:label]).tasks
+    else
+      @tasks = Task.filtered_list(params, current_user).page(params[:page]).per(10)
+    end
+  else
   @tasks = Task.filtered_list(params, current_user).page(params[:page]).per(10)
+  end
 end
 
 
@@ -12,13 +20,15 @@ end
 
 def new
   @task = Task.new
+  @labels = current_user.labels
 end
 
 def edit
+  @labels = @task.labels
 end
 
 def create
-  @task = current_user.tasks.build(task_params)
+   @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: t('common.task_created') 
     else
@@ -54,7 +64,7 @@ end
 end
  
  def task_params
-   params.require(:task).permit(:title, :content, :deadline_on, :priority, :status )
+   params.require(:task).permit(:title, :content, :deadline_on, :priority, :status, label_ids: [] ).reject { |label_id| label_id.blank? }
  end
 
  def require_login
@@ -64,3 +74,4 @@ end
     end
   end
 end
+

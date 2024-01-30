@@ -1,5 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :label_tasks
+  has_many :labels, through: :label_tasks, dependent: :destroy
 
   enum priority: { 低: 0, 中: 1, 高: 2 }
   enum status: { 未着手: 0, 着手中: 1, 完了: 2}
@@ -9,6 +11,7 @@ class Task < ApplicationRecord
   validates :deadline_on, presence: {message: :blank}
   validates :priority, presence: {message: :blank}
   validates :status, presence: {message: :blank}
+  
 
 
 
@@ -24,4 +27,5 @@ class Task < ApplicationRecord
     tasks = tasks.search_by_status(params[:search][:status]) if params[:search].present? && params[:search][:status].present?
     tasks.order(created_at: :desc)
   end
+  
 end

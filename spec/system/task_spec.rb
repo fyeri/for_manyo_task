@@ -27,7 +27,6 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '一覧表示機能' do
        # let!を使ってテストデータを変数として定義することで、複数のテストでテストデータを共有できる
-
        let!(:first_task) { FactoryBot.create(:task, title: 'first_task', created_at: '2022-02-18', deadline_on: '2025-02-18', priority: "中", status: "未着手", user: user ) }
        let!(:second_task) { FactoryBot.create(:task, title: 'second_task', created_at: '2022-02-17', deadline_on: '2025-02-17', priority: "高", status: "着手中",user: user  ) }
        let!(:third_task) { FactoryBot.create(:task, title: 'third_task', created_at: '2022-02-16', deadline_on: '2025-02-17', priority: "低", status: "完了",user: user ) }
@@ -205,6 +204,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_button "create-session"
      end
      it 'そのタスクの内容が表示される' do
+
       
       first('.show-task').click
 
@@ -212,6 +212,35 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content '企画書を作成する。'
         expect(page).not_to have_content 'second_task'
         expect(page).not_to have_content 'third_task' 
+    end
+  end
+  describe '検索機能' do
+    context 'ラベルで検索をした場合' do 
+     let!(:user) { FactoryBot.create(:user) }
+      let!(:label) { FactoryBot.create(:label,user:user)}
+
+      let!(:first_task) { FactoryBot.create(:task, title: 'first_task', created_at: '2022-02-18', deadline_on: '2025-02-18', priority: "中",labels: [label], status: "未着手",user: user) }
+
+      let!(:second_task) { FactoryBot.create(:task, title: 'second_task', created_at: '2022-02-17', deadline_on: '2025-02-17', priority: "高", status: "着手中" ,user: user) }
+      let!(:third_task) { FactoryBot.create(:task, title: 'third_task', created_at: '2022-02-16', deadline_on: '2025-02-16', priority: "低", status: "完了", user: user) }
+
+      before do
+      visit new_session_path
+      fill_in "session_email", with: "mystring@gmail.com"
+      fill_in "session_password", with: "MyString"
+      click_button "create-session"
+     end
+     
+     it "そのラベルの付いたタスクがすべて表示される" do
+      select "ラベル1", from: "search_label"
+      click_button '検索'
+
+      expect(page).to have_content 'first_task'
+      expect(page).not_to have_content 'second_task'
+      expect(page).not_to have_content 'third_task' 
+
+        # toとnot_toのマッチャを使って表示されるものとされないものの両方を確認する
+      end
     end
   end
 end

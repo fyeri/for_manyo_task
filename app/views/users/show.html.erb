@@ -13,5 +13,5 @@
 </tr>
 
 
-<%= link_to t('.edit'), edit_user_path, id: "edit-user"  %> |
-<%= link_to t('.destroy_user'), user_path(@user.id),  method: :delete, data: { confirm: t('common.confirm_destroy') }, id: "destroy-user"  %>
+<%= link_to t('.edit'), edit_user_path, id: "edit-user",class: "btn btn-primary  text-white"  %> |
+<%= link_to t('.destroy_user'), user_path(@user.id),  method: :delete, data: { confirm: t('common.confirm_destroy') }, id: "destroy-user",class: "btn btn-danger  text-white"   %>
