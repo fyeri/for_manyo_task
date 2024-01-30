@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   end
    resources :sessions, only: [:new, :create, :destroy]
    resources :labels, only: [:index, :new, :edit, :create, :destroy, :update]
+  get '*not_found' => 'application#routing_error'
+  post '*not_found' => 'application#routing_error'  
 end
