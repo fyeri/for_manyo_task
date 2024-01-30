@@ -1,6 +1,8 @@
 class Label < ApplicationRecord
-  has_and_belongs_to_many :tasks
   belongs_to :user
+  has_many :label_tasks
+  has_many :tasks, through: :label_tasks
+
 
   validates :name, presence: {message: :blank}
 end

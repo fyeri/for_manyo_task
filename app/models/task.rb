@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :user
-  has_and_belongs_to_many :labels
+  has_many :label_tasks
+  has_many :labels, through: :label_tasks
 
   enum priority: { 低: 0, 中: 1, 高: 2 }
   enum status: { 未着手: 0, 着手中: 1, 完了: 2}
