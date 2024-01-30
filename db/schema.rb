@@ -33,13 +33,6 @@ ActiveRecord::Schema.define(version: 2024_01_29_052004) do
     t.index ["user_id"], name: "index_labels_on_user_id"
   end
 
-  create_table "labels_tasks", force: :cascade do |t|
-    t.bigint "label_id", null: false
-    t.bigint "task_id", null: false
-    t.index ["label_id"], name: "index_labels_tasks_on_label_id"
-    t.index ["task_id"], name: "index_labels_tasks_on_task_id"
-  end
-
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
     t.string "content", null: false
@@ -51,13 +44,6 @@ ActiveRecord::Schema.define(version: 2024_01_29_052004) do
     t.bigint "user_id", null: false
     t.index ["status"], name: "index_tasks_on_status"
     t.index ["user_id"], name: "index_tasks_on_user_id"
-  end
-
-  create_table "tasks_labels", force: :cascade do |t|
-    t.bigint "task_id", null: false
-    t.bigint "label_id", null: false
-    t.index ["label_id"], name: "index_tasks_labels_on_label_id"
-    t.index ["task_id"], name: "index_tasks_labels_on_task_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -73,9 +59,5 @@ ActiveRecord::Schema.define(version: 2024_01_29_052004) do
   add_foreign_key "label_tasks", "labels"
   add_foreign_key "label_tasks", "tasks"
   add_foreign_key "labels", "users"
-  add_foreign_key "labels_tasks", "labels"
-  add_foreign_key "labels_tasks", "tasks"
   add_foreign_key "tasks", "users"
-  add_foreign_key "tasks_labels", "labels"
-  add_foreign_key "tasks_labels", "tasks"
 end
